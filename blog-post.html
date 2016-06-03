@@ -11,12 +11,24 @@ License: MIT
         </div>
         <div ng-bind-html="blogPost.content"></div>
         <div class="page-footer">
-            <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-            <b:if cond='data:blog.pageType == "item"'>
-                <div style='float:right;margin-left:10px;'>
-                    <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-                    <script type="IN/Share" data-url="http://www.google.com" data-counter="right"></script>
-                </div>
-            </b:if>
+            <a class="twitter popup" href="http://twitter.com/share">Tweet</a>
+            <script>
+              $('.popup').click(function(event) {
+                var width  = 575,
+                    height = 400,
+                    left   = ($(window).width()  - width)  / 2,
+                    top    = ($(window).height() - height) / 2,
+                    url    = this.href,
+                    opts   = 'status=1' +
+                             ',width='  + width  +
+                             ',height=' + height +
+                             ',top='    + top    +
+                             ',left='   + left;
+                
+                window.open(url, 'twitter', opts);
+             
+                return false;
+              });
+            </script>
         </div>
     </div>
