@@ -57,7 +57,7 @@ app.controller('toc', function ($scope, $http) {
 });
 
 
-app.controller('blogPost', function ($scope, $http, $routeParams, $sce) {
+app.controller('blogPost', function ($scope, $http, $routeParams, $location, $sce) {
     function setBlogPostData()
     {
         for (var i = 0; i < g_toc.length; i++) {
@@ -65,7 +65,9 @@ app.controller('blogPost', function ($scope, $http, $routeParams, $sce) {
                 var blogPost = g_toc[i];
                 if(typeof(blogPost.content) == "string")
                 {
-                    $http.get('./data/' + blogPost.content).success(function (blogContent) {
+                    $scope.blogPostUrl = $location.url();
+
+                    $http.get(dataUrl + blogPost.content).success(function (blogContent) {
                         blogPost.content = $sce.trustAsHtml(marked(blogContent));
                         $scope.blogPost = blogPost;
                     });

@@ -4,12 +4,14 @@ myGitHubBlog
 License: MIT
 -->
 
-<!-- TODO : better template to separate the header from the content more distinctively. -->
     <div class="container">
         <div class="page-header">
             <h1>{{blogPost.title}}</h1>
             <em>{{blogPost.subtitle}}</em>
         </div>
         <div ng-bind-html="blogPost.content"></div>
+        <div class="page-footer">
+            <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+            <script type="IN/Share" data-url="{{blogPost.url}}" data-counter="right"></script>
+        </div>
     </div>
-<!-- TODO : template integrating sharing buttons with Twitter and LinkedIn. -->
