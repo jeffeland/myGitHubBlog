@@ -5,6 +5,15 @@
  */
 'use strict';
 
+var dataUrl = "./data/";
+var hostname = window.location.hostname;
+if(hostname.endsWith("github.io")) {
+   var path1 = hostname.replace(".github.io", "");
+   var path2 = window.location.pathname.substring(1, window.location.pathname.length);
+   path2 = path2.substr(0, path2.indexOf("/") + 1);
+   var dataUrl = "https://github.com/" + path1 + "/" + path2;
+}
+
 marked.setOptions({
     highlight: function (code) {
         return hljs.highlightAuto(code).value;
