@@ -6,13 +6,6 @@
 'use strict';
 
 var dataUrl = "./data/";
-var hostname = window.location.hostname;
-if(hostname.endsWith("github.io")) {
-   var path1 = hostname.replace(".github.io", "");
-   var path2 = window.location.pathname.substring(1, window.location.pathname.length);
-   path2 = path2.substr(0, path2.indexOf("/") + 1);
-   var dataUrl = "https://github.com/" + path1 + "/" + path2 + "tree/data/";
-}
 
 marked.setOptions({
     highlight: function (code) {
@@ -45,7 +38,6 @@ app.config(['$routeProvider',
     }]);
 
 app.controller('author', function ($scope, $http, $sce) {
-    delete $http.defaults.headers.common['X-Requested-With'];
     $http.get(dataUrl + 'author.md').success(function (authorDetails) {
         $scope.authorDetails = $sce.trustAsHtml(marked(authorDetails));
     });
@@ -54,7 +46,6 @@ app.controller('author', function ($scope, $http, $sce) {
 app.controller('toc', function ($scope, $http) {
     if(g_toc  == null)
     {
-        delete $http.defaults.headers.common['X-Requested-With'];
         $http.get(dataUrl + 'toc.json').success(function (l_toc) {
             g_toc = l_toc;
             $scope.toc = g_toc;
@@ -74,7 +65,6 @@ app.controller('blogPost', function ($scope, $http, $routeParams, $sce) {
                 var blogPost = g_toc[i];
                 if(typeof(blogPost.content) == "string")
                 {
-                    delete $http.defaults.headers.common['X-Requested-With'];
                     $http.get('./data/' + blogPost.content).success(function (blogContent) {
                         blogPost.content = $sce.trustAsHtml(marked(blogContent));
                         $scope.blogPost = blogPost;
@@ -90,7 +80,6 @@ app.controller('blogPost', function ($scope, $http, $routeParams, $sce) {
     }
 
     if(g_toc  == null) {
-        delete $http.defaults.headers.common['X-Requested-With'];
         $http.get(dataUrl + 'toc.json').success(function (l_toc) {
             g_toc = l_toc;
             setBlogPostData();
