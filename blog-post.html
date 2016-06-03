@@ -10,7 +10,8 @@ License: MIT
             <em>{{blogPost.subtitle}}</em>
         </div>
         <div ng-bind-html="blogPost.content"></div>
-        <div>
+        <div class="page-footer">
+            <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
             <b:if cond='data:blog.pageType == "item"'>
                 <div style='float:right;margin-left:10px;'>
                     <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
