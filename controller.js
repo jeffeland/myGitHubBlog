@@ -45,7 +45,7 @@ app.config(['$routeProvider',
     }]);
 
 app.controller('author', function ($scope, $http, $sce) {
-    $http.get(dataUrl + 'author.md').success(function (authorDetails) {
+    $http.jsonp(dataUrl + 'author.md?callback=jsonp_callback').success(function (authorDetails) {
         $scope.authorDetails = $sce.trustAsHtml(marked(authorDetails));
     });
 });
@@ -53,8 +53,7 @@ app.controller('author', function ($scope, $http, $sce) {
 app.controller('toc', function ($scope, $http) {
     if(g_toc  == null)
     {
-        delete $http.defaults.headers.common['X-Requested-With'];
-        $http.get(dataUrl + 'toc.json').success(function (l_toc) {
+        $http.jsonp(dataUrl + 'toc.json?callback=jsonp_callback').success(function (l_toc) {
             g_toc = l_toc;
             $scope.toc = g_toc;
         })
@@ -73,8 +72,7 @@ app.controller('blogPost', function ($scope, $http, $routeParams, $sce) {
                 var blogPost = g_toc[i];
                 if(typeof(blogPost.content) == "string")
                 {
-                    delete $http.defaults.headers.common['X-Requested-With'];
-                    $http.get('./data/' + blogPost.content).success(function (blogContent) {
+                    $http.jsonp('./data/' + blogPost.content + '?callback=jsonp_callback').success(function (blogContent) {
                         blogPost.content = $sce.trustAsHtml(marked(blogContent));
                         $scope.blogPost = blogPost;
                     });
@@ -90,7 +88,7 @@ app.controller('blogPost', function ($scope, $http, $routeParams, $sce) {
 
     if(g_toc  == null) {
         delete $http.defaults.headers.common['X-Requested-With'];
-        $http.get(dataUrl + 'toc.json').success(function (l_toc) {
+        $http.jsonp(dataUrl + 'toc.json?callback=jsonp_callback').success(function (l_toc) {
             g_toc = l_toc;
             setBlogPostData();
         })
