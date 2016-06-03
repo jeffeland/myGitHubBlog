@@ -5,6 +5,8 @@
  */
 'use strict';
 
+var dataUrl = "./data/";
+
 marked.setOptions({
     highlight: function (code) {
         return hljs.highlightAuto(code).value;
@@ -36,7 +38,7 @@ app.config(['$routeProvider',
     }]);
 
 app.controller('author', function ($scope, $http, $sce) {
-    $http.get('./data/author.md').success(function (authorDetails) {
+    $http.get(dataUrl + 'author.md').success(function (authorDetails) {
         $scope.authorDetails = $sce.trustAsHtml(marked(authorDetails));
     });
 });
@@ -44,7 +46,7 @@ app.controller('author', function ($scope, $http, $sce) {
 app.controller('toc', function ($scope, $http) {
     if(g_toc  == null)
     {
-        $http.get('./data/toc.json').success(function (l_toc) {
+        $http.get(dataUrl + 'toc.json').success(function (l_toc) {
             g_toc = l_toc;
             $scope.toc = g_toc;
         })
@@ -78,7 +80,7 @@ app.controller('blogPost', function ($scope, $http, $routeParams, $sce) {
     }
 
     if(g_toc  == null) {
-        $http.get('./data/toc.json').success(function (l_toc) {
+        $http.get(dataUrl + 'toc.json').success(function (l_toc) {
             g_toc = l_toc;
             setBlogPostData();
         })
