@@ -65,7 +65,7 @@ app.controller('blogPost', function ($scope, $http, $routeParams, $location, $sc
                 var blogPost = g_toc[i];
                 if(typeof(blogPost.content) == "string")
                 {
-                    $scope.blogPost.url = $location.url();
+                    blogPost.url = $location.url();
 
                     $http.get(dataUrl + blogPost.content).success(function (blogContent) {
                         blogPost.content = $sce.trustAsHtml(marked(blogContent));
